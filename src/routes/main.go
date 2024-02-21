@@ -17,6 +17,7 @@ func Router(c *fiber.App) {
 		month.Get("/paginated-data", monthcontroller.GetAllMonthsPaginated)
 		month.Post("/create", monthcontroller.PostMonth)
 		month.Put("/update/:id", monthcontroller.UpdateMonth)
+		month.Delete("/delete/:id", monthcontroller.DeleteMonth)
 	}
 
 }
