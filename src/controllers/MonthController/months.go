@@ -98,3 +98,25 @@ func PostMonth(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusMethodNotAllowed).SendString("Method tidak diizinkan")
 	}
 }
+
+func UpdateMonth(c *fiber.Ctx) error {
+	if c.Method() == fiber.MethodPut {
+		idParam := c.Params("id")
+		id, _ := strconv.Atoi(idParam) 
+		var month models.Month
+		if err := c.BodyParser(&month); err != nil {
+			return c.Status(fiber.StatusBadRequest).SendString(err.Error())
+		}
+		newMonth := models.Month{
+			Name: month.Name,
+			Day:  month.Day,
+		}
+		models.UpdateMonth(id , &newMonth)
+
+		return c.JSON(fiber.Map{
+			"Message": "Month Updated",
+		})
+	} else {
+		return c.Status(fiber.StatusMethodNotAllowed).SendString("Method tidak diizinkan")
+	}
+}

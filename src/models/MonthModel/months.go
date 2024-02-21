@@ -29,7 +29,7 @@ func PostMonth(item *Month) error {
 	return result.Error
 }
 
-func UpdateMonth(id string, newMonth *Month) error {
+func UpdateMonth(id int, newMonth *Month) error {
 	var item Month
 	result := config.DB.Model(&item).Where("id = ?", id).Updates(newMonth)
 	return result.Error
