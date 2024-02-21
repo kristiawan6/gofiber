@@ -120,3 +120,14 @@ func UpdateMonth(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusMethodNotAllowed).SendString("Method tidak diizinkan")
 	}
 }
+
+func DeleteMonth(c *fiber.Ctx) error {
+	idParam := c.Params("id")
+	id, _ := strconv.Atoi(idParam) 
+	models.DeleteMonth(id)
+
+	return c.JSON(fiber.Map{
+		"Message": "Month Deleted",
+	})
+
+}

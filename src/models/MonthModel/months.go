@@ -35,7 +35,7 @@ func UpdateMonth(id int, newMonth *Month) error {
 	return result.Error
 }
 
-func DeleteMonth(id string) error {
+func DeleteMonth(id int) error {
 	var item Month
 	result := config.DB.Delete(&item, "id = ?", id)
 	return result.Error
