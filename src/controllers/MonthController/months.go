@@ -2,7 +2,6 @@ package monthcontroller
 
 import (
 	"encoding/json"
-	"fetchAPI_gofiber/src/helper"
 	models "fetchAPI_gofiber/src/models/MonthModel"
 	"math"
 	"net/http"
@@ -58,7 +57,7 @@ func GetAllMonthsPaginated(c *fiber.Ctx) error {
 }
 
 func GetAllMonths(c *fiber.Ctx) error {
-	helper.EnableCors(c)
+	
 	months := models.SelectAllMonth()
 	res, err := json.Marshal(months)
 	if err != nil {
@@ -70,7 +69,7 @@ func GetAllMonths(c *fiber.Ctx) error {
 }
 
 func GetMonthById(c *fiber.Ctx) error {
-	helper.EnableCors(c)
+	
 	idParam := c.Params("id")
 	id, _ := strconv.Atoi(idParam)
 	res := models.SelectMonthById(strconv.Itoa(id))
@@ -81,7 +80,7 @@ func GetMonthById(c *fiber.Ctx) error {
 }
 
 func PostMonth(c *fiber.Ctx) error {
-    helper.EnableCors(c)
+    
 
     // Handle OPTIONS request for preflight CORS
     if c.Method() == fiber.MethodOptions {
@@ -110,9 +109,9 @@ func PostMonth(c *fiber.Ctx) error {
 
 
 // func OptionsMonth(c *fiber.Ctx) error {
-// 	helper.EnableCors(c)
+// 	
 // 	if c.Method() == fiber.MethodOptions {
-// 		helper.EnableCors(c)
+// 		
 
 // 		var month models.Month
 // 		if err := c.BodyParser(&month); err != nil {
@@ -135,7 +134,7 @@ func PostMonth(c *fiber.Ctx) error {
 // }
 
 func UpdateMonth(c *fiber.Ctx) error {
-	helper.EnableCors(c)
+	
 
 	if c.Method() == fiber.MethodPut {
 		idParam := c.Params("id")
@@ -159,7 +158,7 @@ func UpdateMonth(c *fiber.Ctx) error {
 }
 
 func DeleteMonth(c *fiber.Ctx) error {
-	helper.EnableCors(c)
+	
 
 	idParam := c.Params("id")
 	id, _ := strconv.Atoi(idParam)
