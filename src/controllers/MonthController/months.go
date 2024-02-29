@@ -81,29 +81,58 @@ func GetMonthById(c *fiber.Ctx) error {
 }
 
 func PostMonth(c *fiber.Ctx) error {
-	helper.EnableCors(c)
-	if c.Method() == fiber.MethodPost {
-		helper.EnableCors(c)
+    helper.EnableCors(c)
 
-		var month models.Month
-		if err := c.BodyParser(&month); err != nil {
-			return c.Status(fiber.StatusBadRequest).SendString(err.Error())
-		}
+    // Handle OPTIONS request for preflight CORS
+    if c.Method() == fiber.MethodOptions {
+        return c.SendStatus(fiber.StatusNoContent)
+    }
 
-		item := models.Month{
-			Name: month.Name,
-			Day:  month.Day,
-		}
-		models.PostMonth(&item)
+    if c.Method() == fiber.MethodPost {
+        var month models.Month
+        if err := c.BodyParser(&month); err != nil {
+            return c.Status(fiber.StatusBadRequest).SendString(err.Error())
+        }
 
-		return c.JSON(fiber.Map{
-			"Message": "Month Posted",
-		})
+        item := models.Month{
+            Name: month.Name,
+            Day:  month.Day,
+        }
+        models.PostMonth(&item)
 
-	} else {
-		return c.Status(fiber.StatusMethodNotAllowed).SendString("Method tidak diizinkan")
-	}
+        return c.JSON(fiber.Map{
+            "Message": "Month Posted",
+        })
+    } else {
+        return c.Status(fiber.StatusMethodNotAllowed).SendString("Method tidak diizinkan")
+    }
 }
+
+
+// func OptionsMonth(c *fiber.Ctx) error {
+// 	helper.EnableCors(c)
+// 	if c.Method() == fiber.MethodOptions {
+// 		helper.EnableCors(c)
+
+// 		var month models.Month
+// 		if err := c.BodyParser(&month); err != nil {
+// 			return c.Status(fiber.StatusBadRequest).SendString(err.Error())
+// 		}
+
+// 		item := models.Month{
+// 			Name: month.Name,
+// 			Day:  month.Day,
+// 		}
+// 		models.PostMonth(&item)
+
+// 		return c.JSON(fiber.Map{
+// 			"Message": "Month Posted",
+// 		})
+
+// 	} else {
+// 		return c.Status(fiber.StatusMethodNotAllowed).SendString("Method tidak diizinkan")
+// 	}
+// }
 
 func UpdateMonth(c *fiber.Ctx) error {
 	helper.EnableCors(c)
