@@ -82,7 +82,6 @@ func GetMonthById(c *fiber.Ctx) error {
 
 func PostMonth(c *fiber.Ctx) error {
 	helper.EnableCors(c)
-
 	if c.Method() == fiber.MethodPost {
 		helper.EnableCors(c)
 
