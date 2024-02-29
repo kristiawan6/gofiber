@@ -13,6 +13,9 @@ func main() {
 
 	config.InitDB()
 	helper.Migration()
+
+	app.Use(helper.EnableCors)
+	
 	routes.Router(app)
 
 	app.Listen(":8080")
