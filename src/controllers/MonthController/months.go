@@ -80,13 +80,6 @@ func GetMonthById(c *fiber.Ctx) error {
 }
 
 func PostMonth(c *fiber.Ctx) error {
-    
-
-    // Handle OPTIONS request for preflight CORS
-    if c.Method() == fiber.MethodOptions {
-        return c.SendStatus(fiber.StatusNoContent)
-    }
-
     if c.Method() == fiber.MethodPost {
         var month models.Month
         if err := c.BodyParser(&month); err != nil {
