@@ -1,22 +1,31 @@
 package main
 
 import (
-	"fetchAPI_gofiber/src/config"
-	"fetchAPI_gofiber/src/helper"
-	"fetchAPI_gofiber/src/routes"
+    "fetchAPI_gofiber/src/config"
+    "fetchAPI_gofiber/src/helper"
+    "fetchAPI_gofiber/src/routes"
 
-	"github.com/gofiber/fiber/v2"
+    "github.com/gofiber/fiber/v2"
+    "github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
-	app := fiber.New()
+    app := fiber.New()
 
-	config.InitDB()
-	helper.Migration()
+    // Initialize database and perform migrations
+    config.InitDB()
+    helper.Migration()
 
-	app.Use(helper.EnableCors)
-	
-	routes.Router(app)
+    // Add CORS middleware
+    app.Use(cors.New(cors.Config{
+        AllowOrigins: "*",
+        AllowMethods: "GET,POST,OPTIONS",
+        AllowHeaders: "Content-Type",
+    }))
 
-	app.Listen(":8080")
+    // Register routes
+    routes.Router(app)
+
+    // Start the server on port 8080
+    app.Listen(":8080")
 }
