@@ -84,6 +84,8 @@ func PostMonth(c *fiber.Ctx) error {
 	helper.EnableCors(c)
 
 	if c.Method() == fiber.MethodPost {
+		helper.EnableCors(c)
+
 		var month models.Month
 		if err := c.BodyParser(&month); err != nil {
 			return c.Status(fiber.StatusBadRequest).SendString(err.Error())
